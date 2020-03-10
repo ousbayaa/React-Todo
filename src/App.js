@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import ListForm from './components/TodoForm';
+import { wait } from '@testing-library/react';
 
 const toDo = [{
   name: 'do a toDo list',
@@ -16,6 +17,7 @@ const toDo = [{
 }
 ]
 
+
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -23,15 +25,26 @@ class App extends React.Component {
 
   constructor() {
     super(); 
-    this.state = toDo;
+    this.state = {
+      toDo,
+    };
   }
+
+  addItem = itemName => {
+    const newItem = {
+      name: itemName,
+      id: Date.now(),
+      done: false
+    };
+    this.setState({toDo: [...this.state.toDo, newItem]});
+  };
 
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm addItem={this.addItem}/>
-          <TodoList toDo={this.state}/>
+          <TodoList toDo={this.state.toDo}/>
       </div>
     );
   }
