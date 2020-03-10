@@ -4,6 +4,7 @@ import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import ListForm from './components/TodoForm';
 import { wait } from '@testing-library/react';
+import "./components/Todo.css";
 
 const toDo = [{
   name: 'do a toDo list',
@@ -39,12 +40,31 @@ class App extends React.Component {
     this.setState({toDo: [...this.state.toDo, newItem]});
   };
 
+  toggleDone = clickedItemId => {
+    this.setState({
+      toDo: this.state.toDo.map(item => {
+        if (item.id === clickedItemId) {
+          return {
+            ...item,
+            done: !item.done
+          };
+        } else {
+          return item;
+        }
+      })
+    });
+  };
+
+  clearDone = () => {
+    this.setState({toDo: this.state.toDo.filter( item => item.done == false)});
+  };
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm addItem={this.addItem}/>
-          <TodoList toDo={this.state.toDo}/>
+          <TodoList toDo={this.state.toDo} toggleDone={this.toggleDone} clearDone={this.clearDone}/>
       </div>
     );
   }
