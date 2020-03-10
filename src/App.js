@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Todo from './components/Todo';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
@@ -23,15 +22,14 @@ class App extends React.Component {
 
   constructor() {
     super(); 
-    this.state = {
-      toDo,
-    };
+    this.state = toDo;
   }
 
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+          <TodoList toDo={this.state}/>
       </div>
     );
   }
